@@ -1,0 +1,40 @@
+# Default values for app-chart.
+frontend:
+  replicaCount: 1
+  image:
+    repository: kaantryoutregistry.azurecr.io/lab03/frontend
+    tag: 0.0.1
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+
+backend:
+  replicaCount: 1
+  image:
+    repository: kaantryoutregistry.azurecr.io/lab03/backend
+    tag: 0.0.1
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+
+imagePullSecrets: []
+
+cluster:
+  enabled: true
+  type: postgresql
+  mode: standalone
+  version:
+    postgresql: "16"
+  cluster:
+    enableSuperuserAccess: true
+    initdb:
+      database: taskdb
+  monitoring:
+    enabled: false
+  instances: 1
+  annotations:
+    helm.sh/resource-policy: keep
+  backups:
+    enabled: false
