@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-secure-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # must point to your configuration repository
+    repoURL: 'https://github.com/MarcFont16/lab04-config-personal.git'
+    targetRevision: main
+    # path inside the configuration repo where your manifests/charts live
+    path: deploy 
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: lab04-app # standard namespace for the app 
+  syncPolicy:
+    automated:
+      prune: true # delete resources removed from Git 
+      selfHeal: true # automatically correct drift

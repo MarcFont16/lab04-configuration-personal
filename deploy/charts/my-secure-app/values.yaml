@@ -1,9 +1,10 @@
-# Default values for app-chart.
+# deploy/charts/my-secure-app/values.yaml
+
 frontend:
   replicaCount: 1
   image:
-    repository: kaantryoutregistry.azurecr.io/lab03/frontend
-    tag: 0.0.1
+    repository: lab2g02registry.azurecr.io/lab04/frontend
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -12,14 +13,15 @@ frontend:
 backend:
   replicaCount: 1
   image:
-    repository: kaantryoutregistry.azurecr.io/lab03/backend
-    tag: 0.0.1
+    repository: lab2g02registry.azurecr.io/lab04/backend
+    tag: latest
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
     port: 8080
 
-imagePullSecrets: []
+imagePullSecrets: 
+  - name: acr-secret # Recorda crear aquest secret al namespace lab04-app
 
 cluster:
   enabled: true
